@@ -11,7 +11,7 @@ $('#loading').html('<h1>Loading...</h1> <img src=\"assets/loading-circle.gif\">'
 
 fetch("https://positive-half-anger.glitch.me/movies")
     .then(response => response.json())
-    .then(movies => console.log(movies));
+    .then(movies => console.log(movies), $('#loading').html(''));
 
 
 
