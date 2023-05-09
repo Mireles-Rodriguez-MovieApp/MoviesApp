@@ -1,52 +1,76 @@
 "use strict";
 
-$('#loading').html('<h1>Loading...</h1> <img src=\"assets/loading-circle.gif\">');
+
+//loading screen
+$('#loading').html('<h1>Loading...</h1> <img src=\"assets/loading-circle.gif\" alt="loading-gif">');
 
 
 
-
-
-
-// fetch("https://glitch.com/edit/#!/positive-half-anger?path=db.json%3A14%3A18")
-
-fetch("https://positive-half-anger.glitch.me/movies")
+//update movies function
+function updateMovies(movies){
+    $('#cards').html('');
+    movies.forEach(movie => {$('#cards').append(
+        `<div class="card" style="width: 18rem;" id='${movie.id}'>
+       
+         <div class="card-body">
+            <h5 class="card-title">  ${movie.title} </h5>
+           <p class="card-text"> ${movie.director} </p>
+        </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Genre:  ${movie.genre} </li>
+            <li class="list-group-item">Rating:  ${movie.rating} </li>
+          </ul>
+        <a class="btn btn-primary deleteBtn">Delete</a>
+        </div>`)
+    })
+}
+//fetches and shows movies
+const url = "https://positive-half-anger.glitch.me/movies";
+fetch(url)
     .then(response => response.json())
-    .then(movies => movies.forEach(movie => $('#cards').append("<div class=\"card\" style=\"width: 18rem;\">\n" +
-        // "  <img src=\"...\" class=\"card-img-top\" alt=\"...\">\n" +
-        "  <div class=\"card-body\">\n" +
-        "    <h5 class=\"card-title\"> "+ movie.title + "</h5>\n" +
-        "    <p class=\"card-text\">"+ movie.director +"</p>\n" +
-        "  </div>\n" +
-        "  <ul class=\"list-group list-group-flush\">\n" +
-        "    <li class=\"list-group-item\">Genre: "+ movie.genre +"</li>\n" +
-        "    <li class=\"list-group-item\">Rating: "+ movie.rating +"</li>\n" +
-        "  </ul>\n" +
-        "<a href=\"#\" class=\"btn btn-primary deleteButton\">Delete</a>"+
-        "</div>")), $('#loading').html(''))
+    .then(movies => {
+        updateMovies(movies);
+        $('#loading').html('');
+
+})
+
+// delete button
+$(document).on("click", "a.deleteBtn", function(e){
+    e.preventDefault();
+    let deleteMovieId = $(this).parent("div").attr("id");
+    fetch(`${url}/${deleteMovieId}`, {method: "DELETE"})
+        .then(response => response.json())
+        .then(movies => console.log(movies))
+        .catch(error => console.log(error))
+
+})
 
 const form = document.querySelector('form');
 
 form.addEventListener('submit', (event) => {
-    event.preventDefault(); // prevent the default form submission behavior
+    event.preventDefault(); 
 
-    // add director and genre here
+    // adds title director and genre 
     const title = document.querySelector('#title').value;
+    const director = document.querySelector('#director').value;
+    const genre = document.querySelector('#genre').value;
     const rating = document.querySelector('#rating').value;
 
-    // send the new movie data to the server
-    fetch('https://positive-half-anger.glitch.me/movies', {
+    var newMovie = {
+        title,
+        director,
+        genre,
+        rating
+    }
+    const options = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, rating })
-    })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error(error));
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newMovie),
+    };
+    fetch(url, options)
 });
-
-
-
-
 
 
 const movieId = 3; //example movie ID
