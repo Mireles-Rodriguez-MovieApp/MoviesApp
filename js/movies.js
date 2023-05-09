@@ -58,6 +58,7 @@ form.addEventListener('submit', (event) => {
     };
     fetch(url, options)
 });
+// update button
 // $('.updateList').click(updateMovies(movieList));
 // console.log(movieList);
 
