@@ -103,6 +103,9 @@ console.log(updatedMovie)
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(updatedMovie),
+    }).then(movies =>{
+        console.log(movies)
+        updateMovies();
     })
 
         // When the form is submitted, send an AJAX request to update the movie
@@ -110,14 +113,13 @@ console.log(updatedMovie)
         event.preventDefault(); // Prevent the default form submission
         var movieId = $('#movie-id').val();
         var movieTitle = $('#movie-title').val();
-            var movieDirector = $('#movie-director').val();
+        var movieDirector = $('#movie-director').val();
         var movieRating = $('#movie-rating').val();
         var movieData = {
         title: movieTitle,
         rating: movieRating
     };
         $.ajax({
-        url: 'https://example.com/movies/' + movieId,
         method: 'PUT',
         data: movieData
     })
@@ -127,17 +129,7 @@ console.log(updatedMovie)
         $('#edit-movie-form')[0].reset();
         // Optionally, update the movie list with the updated movie
     })
-
     });
-
-        // When a movie is selected, pre-populate the form with its details
-        function populateEditForm(movie) {
-        $('#movie-id').val(movie.id);
-        $('#movie-title').val(movie.title);
-            $('#movie-director').val(movie.director);
-            $('#movie-genre').val(movie.genre);
-        $('#movie-rating').val(movie.rating);
-    }
 });
 
 
