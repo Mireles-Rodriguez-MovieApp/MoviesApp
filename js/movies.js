@@ -7,10 +7,15 @@ $('#loading').html('<h1>Loading...</h1> <img src=\"assets/loading-circle.gif\" a
 
 
 //update movies function
-function updateMovies(movies){
-    $('#cards').html('');
-    movies.forEach(movie => {$('#cards').append(
-        `<div class="card" style="width: 18rem;" id='${movie.id}'>
+function updateMovies(){
+    fetch(url)
+        .then(response => response.json())
+        .then(movies => {
+            $('#loading').html('');
+            $('#cards').html('');
+            movies.forEach(movie => {
+                $('#cards').append(
+                    `<div class="card" style="width: 18rem;" id='${movie.id}'>
        
          <div class="card-body">
             <h5 class="card-title">  ${movie.title} </h5>
@@ -22,17 +27,12 @@ function updateMovies(movies){
           </ul>
         <a class="btn btn-primary deleteBtn">Delete</a>
         </div>`)
-    })
+            })
+        })
 }
 //fetches and shows movies
 const url = "https://positive-half-anger.glitch.me/movies";
-fetch(url)
-    .then(response => response.json())
-    .then(movies => {
-        updateMovies(movies);
-        $('#loading').html('');
-
-})
+updateMovies();
 
 // delete button
 $(document).on("click", "a.deleteBtn", function(e){
@@ -40,8 +40,10 @@ $(document).on("click", "a.deleteBtn", function(e){
     let deleteMovieId = $(this).parent("div").attr("id");
     fetch(`${url}/${deleteMovieId}`, {method: "DELETE"})
         .then(response => response.json())
-        .then(movies => console.log(movies))
-        .catch(error => console.log(error))
+        .then(movies => {
+            console.log(movies)
+            updateMovies();
+        })
 
 })
 
@@ -70,13 +72,15 @@ form.addEventListener('submit', (event) => {
         body: JSON.stringify(newMovie),
     };
     fetch(url, options)
+        .then(movies =>{
+            console.log(movies)
+            updateMovies();
+        });
 });
 
 
 const movieId = 3; //example movie ID
-/*
-const movieToEdit = movie.find(movie => movie.id === movieId);
-*/
+
 
 
 
@@ -123,9 +127,7 @@ console.log(updatedMovie)
         $('#edit-movie-form')[0].reset();
         // Optionally, update the movie list with the updated movie
     })
-        .fail(function(error) {
-        console.error('Error updating movie:', error);
-    });
+
     });
 
         // When a movie is selected, pre-populate the form with its details
@@ -136,7 +138,6 @@ console.log(updatedMovie)
             $('#movie-genre').val(movie.genre);
         $('#movie-rating').val(movie.rating);
     }
-
 });
 
 
