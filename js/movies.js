@@ -85,34 +85,21 @@ editSubmit.addEventListener('click', (event) => {
     event.preventDefault();
 
     const updatedMovie = {
-        title: document.querySelector('#title').value,
-        director: document.querySelector('#director').value,
-        genre: document.querySelector('#genre').value,
-        rating: document.querySelector('#rating').value,
+        title: document.querySelector('#movie-title').value,
+        director: document.querySelector('#movie-director').value,
+        genre: document.querySelector('#movie-genre').value,
+        rating: document.querySelector('#movie-rating').value,
     };
 
 console.log(updatedMovie)
     /*send a PUt request to  update the movie data on the server*/
-    fetch(`https://positive-half-anger.glitch.me/movies${movieToEdit.id}`, {
+    fetch(`https://positive-half-anger.glitch.me/movies/${movieId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(updatedMovie),
     })
-        .then(response => response.json())
-        .then(data => {
-            // Update the movie data in your local "movies" variable
-            const index = movie.findIndex(movie => movie.id === movieToEdit.id);
-            movies[index] = data;
-
-            // Show a success message to the user
-            alert('Movie updated successfully!');
-        })
-        .catch(error => {
-            console.error('Error updating movie:', error);
-            alert('An error occurred while updating the movie.');
-
 
         // When the form is submitted, send an AJAX request to update the movie
         $('#edit-movie-form').submit(function(event) {
@@ -149,7 +136,7 @@ console.log(updatedMovie)
             $('#movie-genre').val(movie.genre);
         $('#movie-rating').val(movie.rating);
     }
-})
+
 });
 
 
