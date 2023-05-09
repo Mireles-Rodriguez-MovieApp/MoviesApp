@@ -1,10 +1,12 @@
 "use strict";
 
+
+//loading screen
 $('#loading').html('<h1>Loading...</h1> <img src=\"assets/loading-circle.gif\" alt="loading-gif">');
 
 
 
-
+//update movies function
 function updateMovies(movies){
     $('#cards').html('');
     movies.forEach(movie => {$('#cards').append(
@@ -22,7 +24,7 @@ function updateMovies(movies){
         </div>`)
     })
 }
-
+//fetches and shows movies
 const url = "https://positive-half-anger.glitch.me/movies";
 fetch(url)
     .then(response => response.json())
@@ -32,16 +34,28 @@ fetch(url)
 
 })
 
+// delete button
+$(document).on("click", "a.deleteBtn", function(e){
+    e.preventDefault();
+    let deleteMovieId = $(this).parent("div").attr("id");
+    fetch(`${url}/${deleteMovieId}`, {method: "DELETE"})
+        .then(response => response.json())
+        .then(movies => console.log(movies))
+        .catch(error => console.log(error))
+
+})
+
 const form = document.querySelector('form');
 
 form.addEventListener('submit', (event) => {
-    event.preventDefault(); // prevent the default form submission behavior
+    event.preventDefault(); 
 
-    // add director and genre here
+    // adds title director and genre 
     const title = document.querySelector('#title').value;
     const director = document.querySelector('#director').value;
     const genre = document.querySelector('#genre').value;
     const rating = document.querySelector('#rating').value;
+
     var newMovie = {
         title,
         director,
@@ -57,20 +71,86 @@ form.addEventListener('submit', (event) => {
     };
     fetch(url, options)
 });
-// update button
 
-$(document).on("click", "a.deleteBtn", function(e){
-    e.preventDefault();
-    let deleteMovieId = $(this).parent("div").attr("id");
-    fetch(`${url}/${deleteMovieId}`, {method: "DELETE"})
+
+const movieId = 3; //example movie ID
+/*
+const movieToEdit = movie.find(movie => movie.id === movieId);
+*/
+
+
+
+const editSubmit = document.querySelector('#editSubmit');
+editSubmit.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const updatedMovie = {
+        title: document.querySelector('#title').value,
+        director: document.querySelector('#director').value,
+        genre: document.querySelector('#genre').value,
+        rating: document.querySelector('#rating').value,
+    };
+
+console.log(updatedMovie)
+    /*send a PUt request to  update the movie data on the server*/
+    fetch(`https://positive-half-anger.glitch.me/movies${movieToEdit.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedMovie),
+    })
         .then(response => response.json())
-        .then(movies => console.log(movies))
-        .catch(error => console.log(error))
+        .then(data => {
+            // Update the movie data in your local "movies" variable
+            const index = movie.findIndex(movie => movie.id === movieToEdit.id);
+            movies[index] = data;
 
+            // Show a success message to the user
+            alert('Movie updated successfully!');
+        })
+        .catch(error => {
+            console.error('Error updating movie:', error);
+            alert('An error occurred while updating the movie.');
+
+
+        // When the form is submitted, send an AJAX request to update the movie
+        $('#edit-movie-form').submit(function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        var movieId = $('#movie-id').val();
+        var movieTitle = $('#movie-title').val();
+            var movieDirector = $('#movie-director').val();
+        var movieRating = $('#movie-rating').val();
+        var movieData = {
+        title: movieTitle,
+        rating: movieRating
+    };
+        $.ajax({
+        url: 'https://example.com/movies/' + movieId,
+        method: 'PUT',
+        data: movieData
+    })
+        .done(function(response) {
+        console.log('Movie updated successfully:', response);
+        // Reset the form after successful update
+        $('#edit-movie-form')[0].reset();
+        // Optionally, update the movie list with the updated movie
+    })
+        .fail(function(error) {
+        console.error('Error updating movie:', error);
+    });
+    });
+
+        // When a movie is selected, pre-populate the form with its details
+        function populateEditForm(movie) {
+        $('#movie-id').val(movie.id);
+        $('#movie-title').val(movie.title);
+            $('#movie-director').val(movie.director);
+            $('#movie-genre').val(movie.genre);
+        $('#movie-rating').val(movie.rating);
+    }
 })
-
-
-
+});
 
 
 

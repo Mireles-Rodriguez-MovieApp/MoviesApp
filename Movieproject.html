@@ -34,6 +34,19 @@
     <input type="submit" value="Add Movie">
 </form>
 
+<form id="edit-movie-form">
+    <input type="hidden" id="movie-id" name="id" value="">
+    <label for="movie-title">Title:</label>
+    <input type="text" id="movie-title" name="title" value=""><br>
+    <label for="movie-director">Director:</label>
+    <input type="text" id="movie-director" name="director" value=""><br>
+    <label for="movie-genre">Genre:</label>
+    <input type="text" id="movie-genre" name="genre" value=""><br>
+    <label for="movie-rating">Rating:</label>
+    <input type="number" id="movie-rating" name="rating" value=""><br>
+    <button type="submit" id="editSubmit">Update</button>
+</form>
+
 
 <a href="#" class="btn btn-primary updateList">Update List</a>
 <script src="js/jquery.js"></script>
