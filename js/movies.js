@@ -3,7 +3,7 @@
 
 //loading screen
 $('#loading').html('<h1>Loading...</h1> <img src=\"assets/loading-circle.gif\" alt="loading-gif">');
-
+$('.hidden').css('display', 'none')
 
 
 //update movies function
@@ -13,6 +13,7 @@ function updateMovies(){
         .then(movies => {
             $('#loading').html('');
             $('#cards').html('');
+            $('.hidden').css('display', 'inline-block')
             movies.forEach(movie => {
                 $('#cards').append(
                     `<div class="card" style="width: 18rem;" id='${movie.id}'>
