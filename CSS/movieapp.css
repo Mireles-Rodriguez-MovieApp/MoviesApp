@@ -1,0 +1,126 @@
+body {
+    background-image: url('207033c945b21f3d9a6c5748edd629cc-Theatre-Shows-March.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+header {
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+#loading {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="submit"],
+button {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+input[type="submit"],
+button {
+    background-color: #222;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+h3 {
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Movie-themed CSS */
+#cards {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px;
+    width: 200px;
+    text-align: center;
+    opacity: 0.5;
+}
+
+.card:hover {
+    opacity: 1; /* Increase opacity on hover */
+}
+
+.card h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    margin: 0;
+}
+
+form {
+    width: 80%;
+    margin: 0 auto;
+}
+
+input[type="submit"],
+button {
+    background-color: #222;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="submit"],
+button {
+    width: 100%;
+}
+
+#editSubmit {
+    background-color: #4caf50;
+}
+
+::placeholder {
+    color: #aaa;
+}
+
+

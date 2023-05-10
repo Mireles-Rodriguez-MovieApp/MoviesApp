@@ -56,7 +56,14 @@ $(document).on("click", "a.deleteBtn", function(e){
 const form = document.querySelector('form');
 
 form.addEventListener('submit', (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
+
+    // Example event listener for a button that shows the modal
+    const showModalButton = document.querySelector('#editSubmit');
+    showModalButton.addEventListener('click', () => {
+        const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+        modal.show();
+    });
 
     // adds title director and genre 
     const title = document.querySelector('#title').value;
@@ -87,7 +94,6 @@ form.addEventListener('submit', (event) => {
 });
 
 
- //example movie ID
 
 
 
