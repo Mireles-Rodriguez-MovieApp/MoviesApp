@@ -15,6 +15,9 @@ function updateMovies(){
             $('#cards').html('');
             $('.hidden').css('display', 'inline-block')
             movies.forEach(movie => {
+
+
+
                 $('#cards').append(
                     `<div class="card" style="width: 18rem;" id='${movie.id}'>
        
@@ -131,7 +134,13 @@ console.log(updatedMovie)
         // Optionally, update the movie list with the updated movie
     })
     });
+
+
 });
+function ombdcall(){
+    fetch("http://www.omdbapi.com/?t=joker&apikey=" + OMBD_KEY).then(response => response.json()).then(data => console.log(data))
+}
+ombdcall();
 
 
 
