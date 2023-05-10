@@ -33,7 +33,6 @@ function updateMovies(){
             $('#loading').html('');
             $('#cards').html('');
             $('.hidden').css('display', 'inline-block')
-
             card(movies);
         })
 }
@@ -140,7 +139,13 @@ editSubmit.addEventListener('click', (event) => {
         // Optionally, update the movie list with the updated movie
     })
     });
+
+
 });
+function ombdcall(){
+    fetch("http://www.omdbapi.com/?t=joker&apikey=" + OMBD_KEY).then(response => response.json()).then(data => console.log(data))
+}
+ombdcall();
 
 
 
