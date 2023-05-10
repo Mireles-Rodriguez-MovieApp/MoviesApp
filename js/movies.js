@@ -9,18 +9,24 @@ let movieList = [];
 //make cards function
 function card(movies){
     movies.forEach(movie => {
-        $('#cards').append(
-            `<div class="card" style="width: 18rem;" id='${movie.id}'>
-                       <div class="card-body">
+        let poster = ombdcall(movie.title);
+        let posterPic;
+        poster.then(function(result) {
+            console.log(result)
+                $('#cards').append(
+                    `<div class="card" style="width: 18rem;" id='${movie.id}'>
+                        <img src='${result}' class="card-img-top" alt="...">
+                        <div class="card-body">
                            <h5 class="card-title">${movie.id}.  ${movie.title} </h5>
                            <p class="card-text"> ${movie.director} </p>
-                       </div>
+                        </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">Genre:  ${movie.genre} </li>
                                 <li class="list-group-item">Rating:  ${movie.rating} </li>
                             </ul>
                             <a class="btn btn-primary deleteBtn">Delete</a>
-                       </div>`)
+                    </div>`)
+        })
     })
 }
 
@@ -142,10 +148,10 @@ editSubmit.addEventListener('click', (event) => {
 
 
 });
-function ombdcall(){
-    fetch("http://www.omdbapi.com/?t=joker&apikey=" + OMBD_KEY).then(response => response.json()).then(data => console.log(data))
+async function ombdcall(movie){
+    return await fetch(`http://www.omdbapi.com/?t=${movie}&apikey=` + OMBD_KEY).then(response => response.json()
+    ).then(data =>data.Poster)
 }
-ombdcall();
 
 
 
