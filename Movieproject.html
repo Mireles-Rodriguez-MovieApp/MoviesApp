@@ -16,6 +16,7 @@
 
 <div class="hidden">
 
+
 <form>
 
     <!--add director and genre for submit form-->
@@ -37,6 +38,8 @@
 <h3>Edit:</h3>
 <form id="edit-movie-form">
     <input type="hidden" id="movie-id" name="id" value="">
+    <label for="movie-number">Which Number:</label>
+    <input type="number" id="movie-number" value=""><br>
     <label for="movie-title">Title:</label>
     <input type="text" id="movie-title" name="title" value=""><br>
     <label for="movie-director">Director:</label>
@@ -44,7 +47,7 @@
     <label for="movie-genre">Genre:</label>
     <input type="text" id="movie-genre" name="genre" value=""><br>
     <label for="movie-rating">Rating:</label>
-    <input type="number" id="movie-rating" name="rating" value=""><br>
+    <input type="number" id="movie-rating" name="rating" min="1" max="5"><br>
     <button type="submit" id="editSubmit">Update</button>
 </form>
 </div>
