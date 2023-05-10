@@ -5,33 +5,35 @@
 $('#loading').html('<h1>Loading...</h1> <img src=\"assets/loading-circle.gif\" alt="loading-gif">');
 $('.hidden').css('display', 'none')
 
+let movieList = [];
+//make cards function
+function card(movies){
+    movies.forEach(movie => {
+        $('#cards').append(
+            `<div class="card" style="width: 18rem;" id='${movie.id}'>
+                       <div class="card-body">
+                           <h5 class="card-title">${movie.id}.  ${movie.title} </h5>
+                           <p class="card-text"> ${movie.director} </p>
+                       </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Genre:  ${movie.genre} </li>
+                                <li class="list-group-item">Rating:  ${movie.rating} </li>
+                            </ul>
+                            <a class="btn btn-primary deleteBtn">Delete</a>
+                       </div>`)
+    })
+}
 
 //update movies function
 function updateMovies(){
     fetch(url)
         .then(response => response.json())
         .then(movies => {
+            movieList = movies;
             $('#loading').html('');
             $('#cards').html('');
             $('.hidden').css('display', 'inline-block')
-            movies.forEach(movie => {
-
-
-
-                $('#cards').append(
-                    `<div class="card" style="width: 18rem;" id='${movie.id}'>
-       
-         <div class="card-body">
-            <h5 class="card-title">  ${movie.title} </h5>
-           <p class="card-text"> ${movie.director} </p>
-        </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Genre:  ${movie.genre} </li>
-            <li class="list-group-item">Rating:  ${movie.rating} </li>
-          </ul>
-        <a class="btn btn-primary deleteBtn">Delete</a>
-        </div>`)
-            })
+            card(movies);
         })
 }
 //fetches and shows movies
@@ -61,12 +63,14 @@ form.addEventListener('submit', (event) => {
     const director = document.querySelector('#director').value;
     const genre = document.querySelector('#genre').value;
     const rating = document.querySelector('#rating').value;
+    let newId = movieList[movieList.length]
 
     var newMovie = {
         title,
         director,
         genre,
-        rating
+        rating,
+        id: newId
     }
     const options = {
         method: 'POST',
@@ -83,7 +87,7 @@ form.addEventListener('submit', (event) => {
 });
 
 
-const movieId = 3; //example movie ID
+ //example movie ID
 
 
 
@@ -92,16 +96,17 @@ const editSubmit = document.querySelector('#editSubmit');
 editSubmit.addEventListener('click', (event) => {
     event.preventDefault();
 
-    const updatedMovie = {
-        title: document.querySelector('#movie-title').value,
-        director: document.querySelector('#movie-director').value,
-        genre: document.querySelector('#movie-genre').value,
-        rating: document.querySelector('#movie-rating').value,
-    };
+            const updatedMovie = {
+                title: document.querySelector('#movie-title').value,
+                director: document.querySelector('#movie-director').value,
+                genre: document.querySelector('#movie-genre').value,
+                rating: document.querySelector('#movie-rating').value,
+            };
 
-console.log(updatedMovie)
-    /*send a PUt request to  update the movie data on the server*/
-    fetch(`https://positive-half-anger.glitch.me/movies/${movieId}`, {
+    const movieId = document.querySelector('#movie-number').value;
+
+    /*send a Put request to  update the movie data on the server*/
+    fetch(`${url}/${movieId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
