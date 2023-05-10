@@ -29,7 +29,6 @@ function card(movies){
         })
     })
 }
-
 //update movies function
 function updateMovies(){
     fetch(url)
