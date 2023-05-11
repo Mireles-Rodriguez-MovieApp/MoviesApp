@@ -8,16 +8,18 @@ $('.hidden').css('visibility', 'hidden')
 let movieList = [];
 //make cards function
 function card(movies){
+    console.log(movies);
+    // try it out: use for loop to go in order of the movies
+    // movie[i] is the one being appended
     movies.forEach(movie => {
         let poster = ombdcall(movie.title);
-        let posterPic;
         poster.then(function(result) {
             console.log(result)
                 $('#cards').append(
                     `<div class="card shadow" style="width: 18rem;" id='${movie.id}'>
                         <img src='${result}' class="card-img-top" alt="...">
                         <div class="card-body bg-#FFD700 mb-3">
-                           <h5 class="card-title ">${movie.id}.  ${movie.title} </h5>
+                           <h5 class="card-title">${movie.title} </h5>
                            <p class="card-text"> ${movie.director} </p>
                         </div>
                             <ul class="list-group list-group-flush">
@@ -25,9 +27,28 @@ function card(movies){
                                 <li class="list-group-item ">Rating:  ${movie.rating} </li>
                             </ul>
                             <a class="btn btn-primary deleteBtn">Delete</a>
-                    </div>`)
+                    </div>`);
         })
     })
+    // for( let i = 0; i<movies.length; i++){
+    //     let poster = ombdcall(movies[i].title);
+    //     poster.then(function(result) {
+    //         console.log(result)
+    //         $('#cards').append(
+    //             `<div class="card" style="width: 18rem;" id='${movies[i].id}'>
+    //                     <img src='${result}' class="card-img-top" alt="...">
+    //                     <div class="card-body">
+    //                        <h5 class="card-title">${movies[i].id}.  ${movies[i].title} </h5>
+    //                        <p class="card-text"> ${movies[i].director} </p>
+    //                     </div>
+    //                         <ul class="list-group list-group-flush">
+    //                             <li class="list-group-item">Genre:  ${movies[i].genre} </li>
+    //                             <li class="list-group-item">Rating:  ${movies[i].rating} </li>
+    //                         </ul>
+    //                         <a class="btn btn-primary deleteBtn">Delete</a>
+    //                 </div>`);
+    //     })
+    // }
 }
 
 //update movies function
@@ -104,20 +125,17 @@ editSubmit.addEventListener('click', (event) => {
                 genre: document.querySelector('#movie-genre').value,
                 rating: document.querySelector('#movie-rating').value,
             };
-
-    const movieId = document.querySelector('#movie-number').value;
-
-    /*send a Put request to  update the movie data on the server*/
-    fetch(`${url}/${movieId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedMovie),
-    }).then(movies =>{
-        console.log(movies)
-        updateMovies();
+    let index;
+    const movieId = document.querySelector('#movie-title').value;
+    fetch(`${url}`).then(res => res.json()).then(movies => {
+        movies.forEach(movie => {
+            if(movie.title === movieId){
+                index = movie.id;
+                fetchIndex(index, updatedMovie);
+            }
+        })
     })
+
 
         // When the form is submitted, send an AJAX request to update the movie
         $('#edit-movie-form').submit(function(event) {
@@ -149,6 +167,7 @@ async function ombdcall(movie){
     ).then(data =>data.Poster)
 }
 
+
 /*added some pseudo code after*/
 document.addEventListener("DOMContentLoaded", function() {
     const h1 = document.querySelector("h1");
@@ -157,10 +176,17 @@ document.addEventListener("DOMContentLoaded", function() {
     afterElement.style.width = textWidth;
 });
 
-
-
-
-
-
-
-
+//fetches the movie based on id and changes it to new movie
+function fetchIndex(movieId, editedMovie) {
+    /*send a Put request to  update the movie data on the server*/
+    fetch(`${url}/${movieId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedMovie),
+    }).then(movies => {
+        console.log(movies)
+        updateMovies();
+    })
+}
