@@ -5,6 +5,11 @@ body {
     background-position: center;
     color: #fff; /* Readable font color */
 }
+.header-bg {
+    background-image: url('five-stars-customer-product-rating-review-icon-vector-symbol-isolated-hotel-restaurant-success-business-sign-golden-stars-five-190643902.jpg');
+    background-size: cover;
+    background-position: center;
+}
 
 header {
     background-color: #222;
@@ -107,6 +112,7 @@ button {
 
 h3 {
     margin-top: 20px;
+    display: none;
 }
 
 .hidden {
