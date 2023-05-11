@@ -14,9 +14,9 @@ function card(movies){
         poster.then(function(result) {
             console.log(result)
                 $('#cards').append(
-                    `<div class="card" style="width: 18rem;" id='${movie.id}'>
+                    `<div class="card shadow" style="width: 18rem;" id='${movie.id}'>
                         <img src='${result}' class="card-img-top" alt="...">
-                        <div class="card-body">
+                        <div class="card-body bg-warning mb-3">
                            <h5 class="card-title">${movie.id}.  ${movie.title} </h5>
                            <p class="card-text"> ${movie.director} </p>
                         </div>
@@ -63,13 +63,6 @@ const form = document.querySelector('form');
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    // Example event listener for a button that shows the modal
-    const showModalButton = document.querySelector('#editSubmit');
-    showModalButton.addEventListener('click', () => {
-        const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
-        modal.show();
-    });
-
     // adds title director and genre 
     const title = document.querySelector('#title').value;
     const director = document.querySelector('#director').value;
@@ -97,9 +90,6 @@ form.addEventListener('submit', (event) => {
             updateMovies();
         });
 });
-
-
-
 
 
 

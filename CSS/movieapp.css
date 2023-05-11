@@ -3,11 +3,11 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    color: #fff; /* Readable font color */
 }
 
 header {
     background-color: #222;
-    color: #fff;
     padding: 20px;
     text-align: center;
 }
@@ -31,6 +31,7 @@ h1 {
 
 form {
     margin-top: 20px;
+
 }
 
 label {
@@ -49,7 +50,7 @@ button {
 
 input[type="submit"],
 button {
-    background-color: #222;
+    background-color: rgb(0, 0, 0);
     color: #fff;
     border: none;
     cursor: pointer;
@@ -60,7 +61,8 @@ h3 {
 }
 
 .hidden {
-    display: none;
+display: flex;
+    justify-content: space-evenly;
 }
 
 /* Movie-themed CSS */
@@ -78,6 +80,7 @@ h3 {
     width: 200px;
     text-align: center;
     opacity: 0.5;
+    color: #000; /* Readable font color */
 }
 
 .card:hover {
@@ -93,7 +96,7 @@ h3 {
     margin: 0;
 }
 
-form {
+form1 {
     width: 80%;
     margin: 0 auto;
 }
@@ -122,5 +125,3 @@ button {
 ::placeholder {
     color: #aaa;
 }
-
-
