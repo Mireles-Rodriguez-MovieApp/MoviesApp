@@ -3,7 +3,7 @@
 
 //loading screen
 $('#loading').html('<h1>Loading...</h1> <img src=\"assets/loading-circle.gif\" alt="loading-gif">');
-$('.hidden').css('display', 'none')
+$('.hidden').css('visibility', 'hidden')
 
 let movieList = [];
 //make cards function
@@ -18,13 +18,13 @@ function card(movies){
                 $('#cards').append(
                     `<div class="card shadow" style="width: 18rem;" id='${movie.id}'>
                         <img src='${result}' class="card-img-top" alt="...">
-                        <div class="card-body bg-warning mb-3">
+                        <div class="card-body bg-#FFD700 mb-3">
                            <h5 class="card-title">${movie.title} </h5>
                            <p class="card-text"> ${movie.director} </p>
                         </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">Genre:  ${movie.genre} </li>
-                                <li class="list-group-item">Rating:  ${movie.rating} </li>
+                                <li class="list-group-item ">Rating:  ${movie.rating} </li>
                             </ul>
                             <a class="btn btn-primary deleteBtn">Delete</a>
                     </div>`);
@@ -59,7 +59,7 @@ function updateMovies(){
             movieList = movies;
             $('#loading').html('');
             $('#cards').html('');
-            $('.hidden').css('display', 'inline-block')
+            $('.hidden').css('visibility', 'visible')
             card(movies);
         })
 }
@@ -167,6 +167,16 @@ async function ombdcall(movie){
     ).then(data =>data.Poster)
 }
 
+
+/*added some pseudo code after*/
+document.addEventListener("DOMContentLoaded", function() {
+    const h1 = document.querySelector("h1");
+    const afterElement = h1.querySelector("::after");
+    const textWidth = h1.clientWidth + "px";
+    afterElement.style.width = textWidth;
+});
+
+//fetches the movie based on id and changes it to new movie
 function fetchIndex(movieId, editedMovie) {
     /*send a Put request to  update the movie data on the server*/
     fetch(`${url}/${movieId}`, {
@@ -180,13 +190,3 @@ function fetchIndex(movieId, editedMovie) {
         updateMovies();
     })
 }
-
-
-
-
-
-
-
-
-
-
