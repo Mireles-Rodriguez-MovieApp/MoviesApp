@@ -6,11 +6,9 @@ $('#loading').html('<h1>Loading...</h1> <img src=\"assets/loading-circle.gif\" a
 $('.hidden').css('visibility', 'hidden')
 
 let movieList = [];
+
 //make cards function
 function card(movies){
-    console.log(movies);
-    // try it out: use for loop to go in order of the movies
-    // movie[i] is the one being appended
     movies.forEach(movie => {
         let poster = ombdcall(movie.title);
         poster.then(function(result) {
@@ -30,25 +28,6 @@ function card(movies){
                     </div>`);
         })
     })
-    // for( let i = 0; i<movies.length; i++){
-    //     let poster = ombdcall(movies[i].title);
-    //     poster.then(function(result) {
-    //         console.log(result)
-    //         $('#cards').append(
-    //             `<div class="card" style="width: 18rem;" id='${movies[i].id}'>
-    //                     <img src='${result}' class="card-img-top" alt="...">
-    //                     <div class="card-body">
-    //                        <h5 class="card-title">${movies[i].id}.  ${movies[i].title} </h5>
-    //                        <p class="card-text"> ${movies[i].director} </p>
-    //                     </div>
-    //                         <ul class="list-group list-group-flush">
-    //                             <li class="list-group-item">Genre:  ${movies[i].genre} </li>
-    //                             <li class="list-group-item">Rating:  ${movies[i].rating} </li>
-    //                         </ul>
-    //                         <a class="btn btn-primary deleteBtn">Delete</a>
-    //                 </div>`);
-    //     })
-    // }
 }
 
 //update movies function
@@ -80,12 +59,13 @@ $(document).on("click", "a.deleteBtn", function(e){
 
 })
 
+//Add New Movie
 const form = document.querySelector('form');
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    // adds title director and genre 
+    // adds title director genre and rating
     const title = document.querySelector('#title').value;
     const director = document.querySelector('#director').value;
     const genre = document.querySelector('#genre').value;
@@ -125,13 +105,11 @@ editSubmit.addEventListener('click', (event) => {
                 genre: document.querySelector('#movie-genre').value,
                 rating: document.querySelector('#movie-rating').value,
             };
-    let index;
     const movieId = document.querySelector('#movie-title').value;
     fetch(`${url}`).then(res => res.json()).then(movies => {
         movies.forEach(movie => {
             if(movie.title === movieId){
-                index = movie.id;
-                fetchIndex(index, updatedMovie);
+                fetchIndex(movie.id, updatedMovie);
             }
         })
     })
@@ -178,7 +156,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //fetches the movie based on id and changes it to new movie
 function fetchIndex(movieId, editedMovie) {
-    /*send a Put request to  update the movie data on the server*/
     fetch(`${url}/${movieId}`, {
         method: 'PUT',
         headers: {
@@ -186,7 +163,6 @@ function fetchIndex(movieId, editedMovie) {
         },
         body: JSON.stringify(editedMovie),
     }).then(movies => {
-        console.log(movies)
         updateMovies();
     })
 }
