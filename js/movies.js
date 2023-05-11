@@ -8,9 +8,11 @@ $('.hidden').css('display', 'none')
 let movieList = [];
 //make cards function
 function card(movies){
+    console.log(movies);
+    // try it out: use for loop to go in order of the movies
+    // movie[i] is the one being appended
     movies.forEach(movie => {
         let poster = ombdcall(movie.title);
-        let posterPic;
         poster.then(function(result) {
             console.log(result)
                 $('#cards').append(
@@ -25,10 +27,30 @@ function card(movies){
                                 <li class="list-group-item">Rating:  ${movie.rating} </li>
                             </ul>
                             <a class="btn btn-primary deleteBtn">Delete</a>
-                    </div>`)
+                    </div>`);
         })
     })
+    // for( let i = 0; i<movies.length; i++){
+    //     let poster = ombdcall(movies[i].title);
+    //     poster.then(function(result) {
+    //         console.log(result)
+    //         $('#cards').append(
+    //             `<div class="card" style="width: 18rem;" id='${movies[i].id}'>
+    //                     <img src='${result}' class="card-img-top" alt="...">
+    //                     <div class="card-body">
+    //                        <h5 class="card-title">${movies[i].id}.  ${movies[i].title} </h5>
+    //                        <p class="card-text"> ${movies[i].director} </p>
+    //                     </div>
+    //                         <ul class="list-group list-group-flush">
+    //                             <li class="list-group-item">Genre:  ${movies[i].genre} </li>
+    //                             <li class="list-group-item">Rating:  ${movies[i].rating} </li>
+    //                         </ul>
+    //                         <a class="btn btn-primary deleteBtn">Delete</a>
+    //                 </div>`);
+    //     })
+    // }
 }
+
 //update movies function
 function updateMovies(){
     fetch(url)
