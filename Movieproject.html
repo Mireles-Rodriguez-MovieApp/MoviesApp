@@ -8,7 +8,9 @@
 </head>
 <body>
 
-<header><h1>CinemaRate</h1></header>
+<header class="header-bg">
+    <h1>CinemaRate</h1>
+</header>
 
 <div id="loading"></div>
 <div id="cards"></div>
@@ -17,50 +19,49 @@
 
 
     <div id="form1">
-<form>
+        <form>
+            <!-- Add director and genre for submit form -->
+            <h3>Add:</h3>
 
-    <!--add director and genre for submit form-->
-    <h3>Add:</h3>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" class="form-input"><br>
 
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title"><br>
+            <label for="director">Director:</label>
+            <input type="text" id="director" name="director" class="form-input"><br>
 
-    <label for="director">Director:</label>
-    <input type="text" id="director" name="director"><br>
+            <label for="genre">Genre:</label>
+            <input type="text" id="genre" name="genre" class="form-input"><br>
 
-    <label for="genre">Genre:</label>
-    <input type="text" id="genre" name="genre"><br>
+            <label for="rating">Rating:</label>
+            <input type="number" id="rating" name="rating" min="1" max="5" class="form-input"><br>
 
-    <label for="rating">Rating:</label>
-    <input type="number" id="rating" name="rating" min="1" max="5"><br>
-
-    <input type="submit" value="Add Movie">
-</form>
+            <input type="submit" value="Add Movie" class="form-button">
+        </form>
     </div>
 
-
-<form id="edit-movie-form">
-    <h3>Edit:</h3>
-    <input type="hidden" id="movie-id" name="id" value="">
-    <label for="movie-title">Edit By Title:</label>
-    <input type="text" id="movie-title" name="title" value=""><br>
-    <label for="movie-director">Director:</label>
-    <input type="text" id="movie-director" name="director" value=""><br>
-    <label for="movie-genre">Genre:</label>
-    <input type="text" id="movie-genre" name="genre" value=""><br>
-    <label for="movie-rating">Rating:</label>
-    <input type="number" id="movie-rating" name="rating" min="1" max="5"><br>
-    <button type="submit" id="editSubmit">Update</button>
-</form>
-</div>
+    <form id="edit-movie-form">
+        <h3>Edit:</h3>
+        <input type="hidden" id="movie-id" name="id" value="">
+        <label for="movie-title">Edit By Title:</label>
+        <input type="text" id="movie-title" name="title" value="" class="form-input"><br>
+        <label for="movie-director">Director:</label>
+        <input type="text" id="movie-director" name="director" value="" class="form-input"><br>
+        <label for="movie-genre">Genre:</label>
+        <input type="text" id="movie-genre" name="genre" value="" class="form-input"><br>
+        <label for="movie-rating">Rating:</label>
+        <input type="number" id="movie-rating" name="rating" min="1" max="5" class="form-input"><br>
+        <button type="submit" id="editSubmit" class="form-button">Update</button>
+    </form>
 
 
 
 
 
 
-<script src="js/keys.js"></script>
+
+    <script src="js/keys.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/movies.js"></script>
+
 </body>
 </html>
