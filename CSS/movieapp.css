@@ -79,7 +79,7 @@ header::before {
 }
 
 form {
-    margin-top: 20px;
+    margin-top: 0px;
 
 }
 
@@ -147,10 +147,7 @@ display: flex;
 .list-group-item{
     background-color: #FFD700;
 }
-form1 {
-    width: 80%;
-    margin: 0 auto;
-}
+
 
 input[type="submit"],
 button {
