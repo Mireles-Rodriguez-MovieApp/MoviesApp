@@ -19,7 +19,7 @@ function card(movies){
                     `<div class="card shadow" style="width: 18rem;" id='${movie.id}'>
                         <img src='${result}' class="card-img-top" alt="...">
                         <div class="card-body bg-warning mb-3">
-                           <h5 class="card-title">${movie.id}.  ${movie.title} </h5>
+                           <h5 class="card-title">${movie.title} </h5>
                            <p class="card-text"> ${movie.director} </p>
                         </div>
                             <ul class="list-group list-group-flush">
@@ -125,20 +125,17 @@ editSubmit.addEventListener('click', (event) => {
                 genre: document.querySelector('#movie-genre').value,
                 rating: document.querySelector('#movie-rating').value,
             };
-
-    const movieId = document.querySelector('#movie-number').value;
-
-    /*send a Put request to  update the movie data on the server*/
-    fetch(`${url}/${movieId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedMovie),
-    }).then(movies =>{
-        console.log(movies)
-        updateMovies();
+    let index;
+    const movieId = document.querySelector('#movie-title').value;
+    fetch(`${url}`).then(res => res.json()).then(movies => {
+        movies.forEach(movie => {
+            if(movie.title === movieId){
+                index = movie.id;
+                fetchIndex(index, updatedMovie);
+            }
+        })
     })
+
 
         // When the form is submitted, send an AJAX request to update the movie
         $('#edit-movie-form').submit(function(event) {
@@ -170,6 +167,19 @@ async function ombdcall(movie){
     ).then(data =>data.Poster)
 }
 
+function fetchIndex(movieId, editedMovie) {
+    /*send a Put request to  update the movie data on the server*/
+    fetch(`${url}/${movieId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedMovie),
+    }).then(movies => {
+        console.log(movies)
+        updateMovies();
+    })
+}
 
 
 
