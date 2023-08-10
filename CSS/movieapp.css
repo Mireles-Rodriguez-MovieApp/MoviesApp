@@ -6,7 +6,7 @@ body {
     color: #fff; /* Readable font color */
 }
 .header-bg {
-    background-image: url('five-stars-customer-product-rating-review-icon-vector-symbol-isolated-hotel-restaurant-success-business-sign-golden-stars-five-190643902.jpg');
+    background-image: url('tickets.jpeg');
     background-size: cover;
     background-position: center;
 }
@@ -127,7 +127,11 @@ display: flex;
 }
 
 .card {
-    background-color: #FFD700;
+    background-image: url('VHS-Video-Tape-Top-Flat.jpg'); /*just added vhs to cards*/
+    /*
+    background-size: cover;
+    */
+    background-position: center;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -135,8 +139,8 @@ display: flex;
     width: 200px;
     text-align: center;
     opacity: 0.5;
-    color: #000; /* Readable font color */
 }
+
 
 .card:hover {
     opacity: 1; /* Increase opacity on hover */
